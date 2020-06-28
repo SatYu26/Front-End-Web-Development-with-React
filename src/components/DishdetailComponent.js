@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Card, CardImg, CardBody, CardTitle, CardText } from 'reactstrap';
 
-class Dishdetail  extends Component{
-    
+
+
+class Dishdetail extends Component {
+
     renderComments(comments) {
         if (comments == null) {
             return (<div></div>)
@@ -14,10 +16,10 @@ class Dishdetail  extends Component{
                     <p>-- {comment.author},
                     &nbsp;
                     {new Intl.DateTimeFormat('en-US', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: '2-digit'
-                        }).format(new Date(comment.date))}
+                        year: 'numeric',
+                        month: 'short',
+                        day: '2-digit'
+                    }).format(new Date(Date.parse(comment.date)))}
                     </p>
                 </li>
             )
@@ -28,42 +30,43 @@ class Dishdetail  extends Component{
                 <ul className='list-unstyled'>
                     {cmnts}
                 </ul>
-
             </div>
         )
     }
-    renderDish(dish){
-        if(dish != null){
-            return(
+    renderDish(dish) {
+        if (dish != null) {
+            return (
                 <div className="col-12  col-md-5  m-1">
                     <Card>
-                    <CardImg width="100%" src={dish.image} alt={dish.name} />
-                    <CardBody>
+                        <CardImg width="100%" src={dish.image} alt={dish.name} />
+                        <CardBody>
                             <CardTitle>{dish.name}</CardTitle>
                             <CardText>{dish.description}</CardText>
-                    </CardBody>
+                        </CardBody>
                     </Card>
-                </div>  
+                </div>
             )
         }
-        else{
+        else {
             return (<div></div>)
         }
     }
     render() {
         const dish = this.props.dish
-        if(dish == null){
-            return ( <div></div>)
+        if (dish == null) {
+            return (<div ></div>)
         }
         const dishItem = this.renderDish(dish)
         const commentItem = this.renderComments(dish.comments)
         return (
-             <div className="row">
-                 {dishItem}
-                 {commentItem}
-             </div>
+            <div class="container">
+            <div className="row">
+                {dishItem}
+                {commentItem}
+            </div>
+            </div>
         );
     }
 }
 
-export default Dishdetail
+export default Dishdetail;
